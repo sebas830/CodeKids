@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    edad INTEGER NOT NULL CHECK (edad >= 6),
+    edad INTEGER NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     activo BOOLEAN DEFAULT TRUE
 );
@@ -26,13 +26,7 @@ CREATE TABLE IF NOT EXISTS cursos (
 );
 
 
--- Insertar usuarios demo con contraseña: CodeKids123
-INSERT INTO usuarios (nombre, apellido, email, password_hash, edad) VALUES
-('Ana', 'García', 'ana.garcia@email.com', '$2b$12$Qw1Qw1Qw1Qw1Qw1Qw1Qw1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1', 10),
-('Carlos', 'Martínez', 'carlos.martinez@email.com', '$2b$12$Qw1Qw1Qw1Qw1Qw1Qw1Qw1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1', 12),
-('María', 'López', 'maria.lopez@email.com', '$2b$12$Qw1Qw1Qw1Qw1Qw1Qw1Qw1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1', 8),
-('Pedro', 'Sánchez', 'pedro.sanchez@email.com', '$2b$12$Qw1Qw1Qw1Qw1Qw1Qw1Qw1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1', 14),
-('Lucía', 'Rodríguez', 'lucia.rodriguez@email.com', '$2b$12$Qw1Qw1Qw1Qw1Qw1Qw1Qw1uQw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1Qw1', 11);
+
 
 -- Insertar cursos de ejemplo
 INSERT INTO cursos (titulo, descripcion, nivel, duracion_horas, edad_minima, edad_maxima) VALUES
