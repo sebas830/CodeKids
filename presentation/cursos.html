@@ -77,16 +77,26 @@
                         contenedor.innerHTML = '<p>No hay cursos disponibles.</p>';
                     } else {
                         contenedor.innerHTML = '';
-                        data.courses.forEach(curso => {
+                        data.courses.forEach((curso, idx) => {
                             contenedor.innerHTML += `
                             <div class="curso-card">
                                 <div class="curso-titulo">${curso.titulo}</div>
                                 <div class="curso-nivel">Nivel: ${curso.nivel.charAt(0).toUpperCase() + curso.nivel.slice(1)}</div>
                                 <div class="curso-descripcion">${curso.descripcion}</div>
                                 <div class="curso-edad">Edad: ${curso.edadMinima} - ${curso.edadMaxima} años</div>
-                                <div class="curso-edad">Duracion: ${curso.duracionHoras} horas</div>
+                                <div class="curso-edad">Duración: ${curso.duracionHoras} horas</div>
+                                <button class="ir-curso-btn" data-curso="${idx}" style="margin-top:1rem;background:linear-gradient(135deg,#42a5f5 0%,#1565c0 100%);color:white;border:none;padding:0.6rem 1.2rem;font-size:1em;border-radius:8px;cursor:pointer;transition:all 0.3s;font-weight:500;">Ir al curso</button>
                             </div>
                             `;
+                        });
+                        // Añadir eventos a los botones
+                        document.querySelectorAll('.ir-curso-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const idx = this.getAttribute('data-curso');
+                                const curso = data.courses[idx];
+                                localStorage.setItem('cursoSeleccionado', JSON.stringify(curso));
+                                window.open('curso.html', '_blank');
+                            });
                         });
                     }
                 } else {

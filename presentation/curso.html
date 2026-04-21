@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contenido del Curso - CodeKids</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CodeKids</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+                <li><a href="register.html">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="contenido-curso" class="fade-in-scroll">
+            <h2 id="curso-titulo">Curso</h2>
+            <div id="curso-detalle">
+                <!-- Aquí se cargará el contenido dinámico del curso -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 CodeKids. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+    // Cargar detalles del curso desde el localStorage (enviado desde cursos.html)
+    document.addEventListener('DOMContentLoaded', function() {
+        const curso = JSON.parse(localStorage.getItem('cursoSeleccionado'));
+        if (!curso) {
+            document.getElementById('curso-detalle').innerHTML = '<p style="color:red">No se encontró información del curso.</p>';
+            return;
+        }
+        document.getElementById('curso-titulo').textContent = curso.titulo;
+        document.getElementById('curso-detalle').innerHTML = `
+            <div class="curso-nivel"><b>Nivel:</b> ${curso.nivel.charAt(0).toUpperCase() + curso.nivel.slice(1)}</div>
+            <div class="curso-descripcion"><b>Descripción:</b> ${curso.descripcion}</div>
+            <div class="curso-edad"><b>Edad:</b> ${curso.edadMinima} - ${curso.edadMaxima} años</div>
+            <div class="curso-edad"><b>Duración:</b> ${curso.duracionHoras} horas</div>
+            <hr>
+            <div id="conocimientos-curso" style="margin-top:1.5rem;"></div>
+        `;
+
+        // Generar conocimientos interactivos según el curso
+        const conocimientosPorCurso = {
+            'Introducción a la Programación': [
+                {
+                    titulo: '¿Qué es un algoritmo?',
+                    explicacion: 'Un algoritmo es como una receta de cocina: una lista de pasos para lograr algo. Por ejemplo, lavarse los dientes tiene pasos: poner pasta, cepillar, enjuagar.',
+                    actividad: '¿Puedes escribir 3 pasos para hacer un sándwich?'
+                },
+                {
+                    titulo: '¿Cómo piensan las computadoras?',
+                    explicacion: 'Las computadoras siguen instrucciones muy precisas. Si falta un paso, ¡se confunden! Por eso, debemos ser claros al programar.',
+                    actividad: 'Imagina que eres un robot. ¿Qué instrucciones te darías para saltar en un pie?'
+                },
+                {
+                    titulo: 'Juega a ordenar instrucciones',
+                    explicacion: 'Ordena estas acciones para dibujar una casa: 1) Dibuja el techo, 2) Dibuja la puerta, 3) Dibuja las paredes.',
+                    actividad: '¿Cuál es el orden correcto? Escribe los números.'
+                }
+            ],
+            'Variables y Tipos de Datos': [
+                {
+                    titulo: '¿Qué es una variable?',
+                    explicacion: 'Una variable es como una caja donde guardas cosas. Puedes poner un número, una palabra o un dibujo dentro.',
+                    actividad: '¿Qué guardarías en una caja llamada "edad"?'
+                },
+                {
+                    titulo: 'Tipos de datos',
+                    explicacion: 'En programación, hay diferentes tipos de datos: números (7), texto ("hola"), y verdadero/falso (true/false).',
+                    actividad: '¿Puedes escribir un ejemplo de texto y uno de número?'
+                },
+                {
+                    titulo: 'Cambia el valor',
+                    explicacion: 'Las variables pueden cambiar. Si tienes una variable "puntos" con 5, y ganas 3 más, ahora tienes 8.',
+                    actividad: 'Si tienes una variable "manzanas" con 2, ¿cuántas tienes si te dan 4 más?'
+                }
+            ],
+            'Estructuras de Control': [
+                {
+                    titulo: '¿Qué es una decisión (if)?',
+                    explicacion: 'En programación, usamos "if" para tomar decisiones. Por ejemplo: Si llueve, lleva paraguas.',
+                    actividad: 'Escribe una decisión usando "si... entonces..."'
+                },
+                {
+                    titulo: '¿Qué es un bucle?',
+                    explicacion: 'Un bucle repite acciones muchas veces. Como saltar la cuerda 10 veces, o decir "hola" a todos tus amigos.',
+                    actividad: '¿Qué harías 5 veces seguidas?'
+                },
+                {
+                    titulo: 'Juega con condiciones',
+                    explicacion: 'Imagina: Si tienes hambre, comes. Si tienes sueño, duermes. Así funcionan los programas.',
+                    actividad: '¿Qué harías si ves un perro en la calle?'
+                }
+            ],
+            'Funciones y Procedimientos': [
+                {
+                    titulo: '¿Qué es una función?',
+                    explicacion: 'Una función es un conjunto de instrucciones que puedes usar muchas veces. Como una receta para hacer galletas.',
+                    actividad: '¿Qué función usarías para saludar a tus amigos?'
+                },
+                {
+                    titulo: 'Parámetros y resultados',
+                    explicacion: 'Las funciones pueden recibir datos (parámetros) y devolver resultados. Ejemplo: sumar(2,3) devuelve 5.',
+                    actividad: '¿Qué resultado esperas de sumar(4,6)?'
+                },
+                {
+                    titulo: 'Divide y vencerás',
+                    explicacion: 'Si tienes un problema grande, divídelo en funciones pequeñas. Así es más fácil de resolver.',
+                    actividad: '¿En qué pasos dividirías "preparar la mochila"?'
+                }
+            ],
+            'Programación Orientada a Objetos': [
+                {
+                    titulo: '¿Qué es un objeto?',
+                    explicacion: 'Un objeto es algo que tiene características (color, tamaño) y puede hacer cosas (moverse, sonar). Como un auto o un perro.',
+                    actividad: 'Nombra 2 objetos que veas a tu alrededor.'
+                },
+                {
+                    titulo: '¿Qué es una clase?',
+                    explicacion: 'Una clase es como un molde para crear objetos. Por ejemplo, la clase "Perro" para crear muchos perros diferentes.',
+                    actividad: '¿Qué clase usarías para crear un robot?'
+                },
+                {
+                    titulo: 'Herencia',
+                    explicacion: 'En programación, los objetos pueden heredar cosas de otros. Un "Perro" hereda de "Animal" que puede caminar y respirar.',
+                    actividad: '¿Qué heredarías de la clase "Animal"?'
+                }
+            ]
+        };
+
+        // Seleccionar conocimientos según el curso
+        const conocimientos = conocimientosPorCurso[curso.titulo] || [
+            {
+                titulo: '¡Pronto más contenido!',
+                explicacion: 'Estamos preparando actividades divertidas para este curso.',
+                actividad: '¿Qué te gustaría aprender sobre este tema?'
+            }
+        ];
+
+        // Renderizar conocimientos
+        const conocimientosDiv = document.getElementById('conocimientos-curso');
+        conocimientos.forEach((k, idx) => {
+            const card = document.createElement('div');
+            card.className = 'conocimiento-card fade-in-scroll';
+            card.innerHTML = `
+                <h3>${idx + 1}. ${k.titulo}</h3>
+                <p>${k.explicacion}</p>
+                <div class="actividad"><b>Actividad:</b> ${k.actividad}</div>
+            `;
+            conocimientosDiv.appendChild(card);
+        });
+
+        // Activar animación de aparición para las tarjetas
+        function activarAnimacionesScroll() {
+            const elementos = document.querySelectorAll('.fade-in-scroll');
+            const activar = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            const observer = new IntersectionObserver(activar, { threshold: 0.15 });
+            elementos.forEach(el => observer.observe(el));
+        }
+        activarAnimacionesScroll();
+    });
+    </script>
+</body>
+</html>
