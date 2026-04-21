@@ -25,9 +25,6 @@ CREATE TABLE IF NOT EXISTS cursos (
     activo BOOLEAN DEFAULT TRUE
 );
 
-
-
-
 -- Insertar cursos de ejemplo
 INSERT INTO cursos (titulo, descripcion, nivel, duracion_horas, edad_minima, edad_maxima) VALUES
 ('Introducción a la Programación', 'Aprende los conceptos básicos de la programación con juegos y actividades divertidas. Descubre qué es un algoritmo y cómo piensan las computadoras.', 'principiante', 10, 6, 12),

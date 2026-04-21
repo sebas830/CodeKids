@@ -1,0 +1,16 @@
+site_name: CodeKids
+nav:
+  - Inicio: docs/inicio.md
+  - Arquitectura: docs/arquitectura.md
+  - Base de Datos: docs/base_de_datos.md
+  - Despliegue: docs/despliegue.md
+  - Pruebas: docs/pruebas.md
+theme:
+  name: material
+  language: es
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sebas830/codekids
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/CodeKidsEdu
