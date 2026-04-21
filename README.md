@@ -89,13 +89,6 @@ Cada curso incluye conocimientos interactivos y actividades para niños.
 5. Abre un Pull Request
 
 
-## Equipo
-
-- **Líder y Desarrollador Principal**: Sebastian Ramírez (sebas830)
-- **Director Educativo**: Dr. Ana María López (PhD en Educación Tecnológica)
-- **Arquitecto de Software**: Carlos Ramírez (Arquitectura Python/Flask/PostgreSQL)
-- **Diseñador UX/UI**: María González (Especialista en Diseño para Niños)
-
 ¡Gracias a todos los colaboradores y a la comunidad CodeKids!
 
 ## Impacto Social
