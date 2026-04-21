@@ -356,12 +356,19 @@
 
 
 <h1 id="diagrama-general-del-proyecto">Diagrama General del Proyecto</h1>
+<div style="max-width: 500px; margin: 0 auto;">
+
+
 <pre><code class="language-mermaid">flowchart TD
-    A[Usuario] --&gt;|Navegador| B[Frontend (HTML/CSS/JS)]
-    B --&gt;|Solicitudes HTTP| C[Backend Flask]
-    C --&gt;|Consultas SQL| D[(PostgreSQL)]
-    C --&gt;|Archivos estáticos| B
+  A[Usuario] --&gt;|Navegador| B[Frontend (HTML/CSS/JS)]
+  B --&gt;|Solicitudes HTTP| C[Backend Flask]
+  C --&gt;|Consultas SQL| D[(PostgreSQL)]
+  C --&gt;|Archivos estáticos| B
 </code></pre>
+
+
+</div>
+
 <h1 id="tabla-de-roles">Tabla de Roles</h1>
 <table>
 <thead>
