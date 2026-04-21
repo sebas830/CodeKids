@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos - CodeKids</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .cursos-lista { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem; }
+        .curso-card { background: #fff; border-radius: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 2rem; width: 320px; transition: transform 0.2s; }
+        .curso-card:hover { transform: scale(1.04); box-shadow: 0 6px 24px rgba(0,0,0,0.13); }
+        .curso-titulo { font-size: 1.3rem; color: var(--primary, #2a7ae4); margin-bottom: 0.5rem; }
+        .curso-nivel { font-size: 1rem; color: #666; margin-bottom: 0.5rem; }
+        .curso-descripcion { font-size: 1rem; color: #222; margin-bottom: 0.5rem; }
+        .curso-edad { font-size: 0.95rem; color: #888; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>CodeKids</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="cursos.html" class="active">Cursos</a></li>
+                <li><a href="login.html">Iniciar Sesion</a></li>
+                <li><a href="register.html">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h2 style="text-align:center;margin-top:2rem;">Nuestros Cursos</h2>
+                <button id="logout-btn" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;padding:0.7rem 1.5rem;font-size:1em;border-radius:8px;cursor:pointer;transition:all 0.3s;font-weight:500;box-shadow:0 2px 8px rgba(102,126,234,0.13);margin-top:2rem;">Cerrar sesión</button>
+            </div>
+            <div class="cursos-lista" id="cursos-lista">
+                <!-- Los cursos se cargan aqui por JS -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 CodeKids. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            document.body.innerHTML = '<div style="color:red;font-weight:bold;text-align:center;margin:4rem;font-size:1.3rem;">Acceso denegado. Debes iniciar sesión para ver los cursos.<br>Redirigiendo...</div>';
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                window.location.replace('login.html');
+            }, 2000);
+            return;
+        }
+        // Si hay token, mostrar cursos normalmente
+        const contenedor = document.getElementById('cursos-lista');
+        contenedor.innerHTML = '';
+        contenedor.innerHTML = '<p>Cargando cursos...</p>';
+        (async function() {
+            try {
+                const resp = await fetch('/api/courses', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                if (resp.status === 401 || resp.status === 403) {
+                    contenedor.innerHTML = '<div style="color:red;font-weight:bold;text-align:center;margin:2rem;">Sesión inválida o expirada. Inicia sesión nuevamente.</div>';
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
+                        window.location.replace('login.html');
+                    }, 2000);
+                    return;
+                }
+                const data = await resp.json();
+                if (data.success && Array.isArray(data.courses)) {
+                    if (data.courses.length === 0) {
+                        contenedor.innerHTML = '<p>No hay cursos disponibles.</p>';
+                    } else {
+                        contenedor.innerHTML = '';
+                        data.courses.forEach(curso => {
+                            contenedor.innerHTML += `
+                            <div class="curso-card">
+                                <div class="curso-titulo">${curso.titulo}</div>
+                                <div class="curso-nivel">Nivel: ${curso.nivel.charAt(0).toUpperCase() + curso.nivel.slice(1)}</div>
+                                <div class="curso-descripcion">${curso.descripcion}</div>
+                                <div class="curso-edad">Edad: ${curso.edadMinima} - ${curso.edadMaxima} años</div>
+                                <div class="curso-edad">Duracion: ${curso.duracionHoras} horas</div>
+                            </div>
+                            `;
+                        });
+                    }
+                } else {
+                    contenedor.innerHTML = '<p>Error al cargar los cursos.</p>';
+                }
+            } catch (err) {
+                contenedor.innerHTML = '<div style="color:red;font-weight:bold;text-align:center;margin:2rem;">Error de autenticación. Inicia sesión nuevamente.</div>';
+                setTimeout(() => {
+                    localStorage.removeItem('token');
+                    window.location.replace('login.html');
+                }, 2000);
+            }
+        })();
+    });
+        // Botón de cerrar sesión
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('token');
+                window.location.replace('login.html');
+            });
+        }
+    </script>
+</body>
+</html>
