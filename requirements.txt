@@ -2,3 +2,4 @@ Flask
 flask-cors
 pyjwt
 werkzeug
+psycopg2-binary

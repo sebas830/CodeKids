@@ -1,8 +1,9 @@
-// Protección de cursos.html: redirigir si no hay sesión
+// Protección de cursos.html: redirigir si no hay sesión y detener ejecución JS
 if (window.location.pathname.endsWith('cursos.html')) {
     const token = localStorage.getItem('token');
     if (!token) {
-        window.location.href = 'login.html';
+        window.location.replace('login.html');
+        throw new Error('No autenticado: redirigiendo a login.');
     }
 }
 // scripts.js - Interactividad profesional para CodeKids
@@ -98,10 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Las contraseñas no coinciden. Por favor, verifica.');
                 return;
             }
-            if (age < 6 || age > 18) {
-                alert('La edad debe estar entre 6 y 18 años.');
-                return;
-            }
+            // Validación de edad eliminada: se permite cualquier edad
             if (!termsAccepted) {
                 alert('Debes aceptar los términos y condiciones para registrarte.');
                 return;
