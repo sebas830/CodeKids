@@ -1,3 +1,93 @@
+/* Paleta principal y variables */
+:root {
+    --primary: #42a5f5;
+    --primary-dark: #1565c0;
+    --accent: #3498db;
+}
+
+/* Animación de fondo hero */
+.hero-bg-anim {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+.floating-shape {
+    position: absolute;
+    opacity: 0.13;
+    animation: floatY 5s ease-in-out infinite alternate;
+}
+.floating-shape2 {
+    left: 80%; top: 10%; width: 90px; animation-delay: 1.5s; animation-duration: 7s;
+}
+.floating-shape3 {
+    left: 10%; top: 60%; width: 70px; animation-delay: 2.5s; animation-duration: 6s;
+}
+@keyframes floatY {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-30px) scale(1.08); }
+}
+/* Botón animado principal */
+.hero button.animated {
+    box-shadow: 0 0 0 0 #42a5f5;
+    animation: pulseBtn 2s infinite;
+}
+@keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 0 #42a5f5; }
+    70% { box-shadow: 0 0 0 16px rgba(66,165,245,0); }
+    100% { box-shadow: 0 0 0 0 #42a5f5; }
+}
+
+/* Animación profesional para tarjetas */
+.card-anim {
+    box-shadow: 0 2px 12px rgba(44,62,80,0.07);
+    transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+.card-anim:hover {
+    box-shadow: 0 8px 32px rgba(66,165,245,0.18);
+    transform: translateY(-8px) scale(1.04) rotateZ(-1deg);
+    border: 1.5px solid var(--primary);
+}
+.beneficio.card-anim, .paso.card-anim, .testimonio.card-anim {
+    border-left: 5px solid var(--primary);
+    background: linear-gradient(120deg, #e3f2fd 0%, #fff 100%);
+}
+.beneficio.card-anim:hover, .paso.card-anim:hover, .testimonio.card-anim:hover {
+    background: linear-gradient(120deg, #42a5f5 0%, #fff 100%);
+    color: #fff;
+}
+.beneficio.card-anim h3, .paso.card-anim h3, .testimonio.card-anim cite {
+    color: var(--primary-dark);
+}
+.beneficio.card-anim:hover h3, .paso.card-anim:hover h3, .testimonio.card-anim:hover cite {
+    color: #fff;
+}
+
+/* Scroll reveal animaciones */
+.fade-in-scroll, .slide-up-scroll, .zoom-in-scroll {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+.fade-in-scroll.visible, .slide-up-scroll.visible, .zoom-in-scroll.visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (max-width: 900px) {
+    .beneficios-grid, .testimonios-grid, .pasos {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        align-items: stretch !important;
+    }
+}
+@media (max-width: 600px) {
+    .hero, section {
+        padding: 1.2rem !important;
+    }
+    .hero h2 { font-size: 1.3em !important; }
+    .hero-buttons { flex-direction: column !important; gap: 0.7rem !important; }
+}
 /* Animaciones personalizadas para scroll */
 .fade-in-scroll {
     opacity: 0;

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeKids - Plataforma Educativa para Aprendizaje de Programación</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <header>
@@ -25,10 +26,16 @@
 
     <main>
         <section id="inicio" class="hero fade-in-scroll">
+            <!-- SVG decorativo animado de fondo -->
+            <div class="hero-bg-anim">
+                <svg class="floating-shape" width="120" height="120" style="left:10%;top:10%;" viewBox="0 0 120 120"><circle cx="60" cy="60" r="60" fill="#fff"/></svg>
+                <svg class="floating-shape floating-shape2" viewBox="0 0 90 90"><rect x="0" y="0" width="90" height="90" rx="30" fill="#fff"/></svg>
+                <svg class="floating-shape floating-shape3" viewBox="0 0 70 70"><polygon points="35,0 70,70 0,70" fill="#fff"/></svg>
+            </div>
             <h2 class="code-title"><span id="typewriter"></span></h2>
-            <p>CodeKids es una plataforma educativa diseñada para niños, que combina el aprendizaje de programación con el desarrollo del pensamiento lógico a través de actividades interactivas y adaptadas a cada edad.</p>
+            <p style="font-size:1.25em;max-width:700px;margin:0 auto 2rem auto;">CodeKids es una plataforma educativa diseñada para niños, que combina el aprendizaje de programación con el desarrollo del pensamiento lógico a través de actividades interactivas y adaptadas a cada edad.</p>
             <div class="hero-buttons">
-                <button onclick="window.location.href='login.html'">Comenzar Ahora</button>
+                <button class="animated" onclick="window.location.href='login.html'">Comenzar Ahora</button>
                 <a href="register.html" class="register-link">Crear Cuenta Nueva</a>
             </div>
         </section>
@@ -48,15 +55,15 @@
         <section id="beneficios" class="fade-in-scroll">
             <h2>Beneficios de CodeKids</h2>
             <div class="beneficios-grid">
-                <div class="beneficio zoom-in-scroll">
+                <div class="beneficio zoom-in-scroll card-anim">
                     <h3>Aprendizaje Adaptativo</h3>
                     <p>Contenido personalizado según el nivel y ritmo de cada niño.</p>
                 </div>
-                <div class="beneficio zoom-in-scroll">
+                <div class="beneficio zoom-in-scroll card-anim">
                     <h3>Metodología Lúdica</h3>
                     <p>Juegos y desafíos que hacen el aprendizaje entretenido y motivador.</p>
                 </div>
-                <div class="beneficio zoom-in-scroll">
+                <div class="beneficio zoom-in-scroll card-anim">
                     <h3>Seguimiento de Progreso</h3>
                     <p>Herramientas para padres y educadores para monitorear el avance.</p>
                 </div>
@@ -66,19 +73,19 @@
         <section id="como-funciona" class="slide-up-scroll">
             <h2>Cómo Funciona Nuestra Plataforma</h2>
             <div class="pasos">
-                <div class="paso fade-in-scroll">
+                <div class="paso fade-in-scroll card-anim" style="transition-delay:0.1s;">
                     <h3>1. Registro</h3>
                     <p>Crea un perfil personalizado para tu hijo con información básica.</p>
                 </div>
-                <div class="paso fade-in-scroll">
+                <div class="paso fade-in-scroll card-anim" style="transition-delay:0.2s;">
                     <h3>2. Evaluación Inicial</h3>
                     <p>Una prueba rápida determina el nivel de partida.</p>
                 </div>
-                <div class="paso fade-in-scroll">
+                <div class="paso fade-in-scroll card-anim" style="transition-delay:0.3s;">
                     <h3>3. Aprendizaje Interactivo</h3>
                     <p>Lecciones, juegos y proyectos prácticos adaptados.</p>
                 </div>
-                <div class="paso fade-in-scroll">
+                <div class="paso fade-in-scroll card-anim" style="transition-delay:0.4s;">
                     <h3>4. Progreso Continuo</h3>
                     <p>Seguimiento y certificados de logros alcanzados.</p>
                 </div>
@@ -88,19 +95,20 @@
         <section id="testimonios" class="slide-up-scroll">
             <h2>Lo que Dicen Nuestros Usuarios</h2>
             <div class="testimonios-grid">
-                <div class="testimonio zoom-in-scroll">
+                <div class="testimonio zoom-in-scroll card-anim">
                     <p>"Mi hijo de 8 años ahora entiende lógica mejor que yo. ¡Increíble!"</p>
                     <cite>- María González, Madre</cite>
                 </div>
-                <div class="testimonio zoom-in-scroll">
+                <div class="testimonio zoom-in-scroll card-anim">
                     <p>"Como educador, recomiendo CodeKids por su enfoque pedagógico sólido."</p>
                     <cite>- Prof. Carlos Ramírez</cite>
                 </div>
-                <div class="testimonio zoom-in-scroll">
+                <div class="testimonio zoom-in-scroll card-anim">
                     <p>"Los niños aprenden jugando, y eso es lo mejor."</p>
                     <cite>- Ana López, Tutora</cite>
                 </div>
             </div>
+
         </section>
 
     </main>
@@ -110,5 +118,21 @@
     </footer>
 
     <script src="scripts.js"></script>
+    <script>
+    // Scroll reveal para animaciones
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.13 });
+        document.querySelectorAll('.fade-in-scroll, .slide-up-scroll, .zoom-in-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    });
+    </script>
 </body>
 </html>
